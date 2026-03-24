@@ -1,0 +1,16 @@
+.git
+.github
+.gitmodules
+.hugo_build.lock
+.DS_Store
+Thumbs.db
+
+public
+resources
+new-post
+linkedin-posts
+
+README.md
+netlify.toml
+scripts
+docker/nginx-default.conf
