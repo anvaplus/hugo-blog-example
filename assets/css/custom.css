@@ -1,0 +1,45 @@
+/* Prevent card thumbnails from being cropped while keeping card layout enabled. */
+.article-link--card .thumbnail_card img,
+.article-link--card .thumbnail_card_related img,
+.article-link--simple img {
+  object-fit: contain !important;
+  background-color: rgb(217 207 198 / 0.26);
+}
+
+.dark .article-link--card .thumbnail_card img,
+.dark .article-link--card .thumbnail_card_related img,
+.dark .article-link--simple img {
+  background-color: rgb(87 73 64 / 0.34);
+}
+
+/* Change the visual effect when hovering over the blog cards title */
+.article-link--card header a:hover,
+.article-link--simple header a:hover {
+  text-decoration-line: none !important;
+  color: rgb(var(--color-primary-500)) !important;
+}
+
+.dark .article-link--card header a:hover,
+.dark .article-link--simple header a:hover {
+  color: rgb(var(--color-primary-400)) !important;
+}
+
+/* Underline prose links on hover */
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)):hover {
+  text-decoration: underline !important;
+  text-decoration-color: rgba(var(--color-primary-300), 1);
+  text-underline-offset: 2px;
+}
+/* Prevent hero images from getting cropped */
+.single_hero_round,
+.single_hero_background img,
+.hero img {
+  object-fit: contain !important;
+  background-color: rgb(217 207 198 / 0.26);
+}
+
+.dark .single_hero_round,
+.dark .single_hero_background img,
+.dark .hero img {
+  background-color: rgb(87 73 64 / 0.34);
+}

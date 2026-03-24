@@ -1,0 +1,25 @@
+# Hugo build output
+public/
+resources/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Hugo lock file  
+.hugo_build.lock
+
+new-post/
+
+netlify.toml
+
+.github/instructions/
+
+.github/copilot-instructions.md
+
+linkedin-posts/

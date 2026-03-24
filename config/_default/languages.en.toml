@@ -1,0 +1,21 @@
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Andrei Vasiliu"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  dateFormat = "2 January 2006"
+  description = "Platform Engineer sharing real-world homelab and Kubernetes experiences"
+
+[params.author]
+  name = "Andrei Vasiliu"
+  image = "img/author.jpg"
+  headline = "Platform Engineer | Homelab Builder"
+  bio = "Romanian expat in Italy. Platform Engineer by trade, homelab builder by passion. Documenting every step of building enterprise-grade infrastructure at home."
+
+  [[params.author.links]]
+    linkedin = "https://www.linkedin.com/in/ing-andrei-vasiliu/"
+  [[params.author.links]]
+    github = "https://github.com/anvaplus"

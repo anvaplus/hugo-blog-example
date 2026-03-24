@@ -1,1 +1,1 @@
-# hugo-blog-example
+# personal-blog

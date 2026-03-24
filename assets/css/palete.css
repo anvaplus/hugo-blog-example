@@ -1,0 +1,20 @@
+/* Color Theme Swatches in Hex */
+.colour-palette-neutrals-white-beige-cream-1-hex { color: #E2C895; }
+.colour-palette-neutrals-white-beige-cream-2-hex { color: #D9CFC6; }
+.colour-palette-neutrals-white-beige-cream-3-hex { color: #A48760; }
+.colour-palette-neutrals-white-beige-cream-4-hex { color: #574940; }
+.colour-palette-neutrals-white-beige-cream-5-hex { color: #006005; }
+
+/* Color Theme Swatches in RGBA */
+.colour-palette-neutrals-white-beige-cream-1-rgba { color: rgba(226, 200, 149, 1); }
+.colour-palette-neutrals-white-beige-cream-2-rgba { color: rgba(217, 207, 198, 1); }
+.colour-palette-neutrals-white-beige-cream-3-rgba { color: rgba(164, 135, 96, 1); }
+.colour-palette-neutrals-white-beige-cream-4-rgba { color: rgba(87, 73, 64, 1); }
+.colour-palette-neutrals-white-beige-cream-5-rgba { color: rgba(0, 96, 5, 1); }
+
+/* Color Theme Swatches in HSLA */
+.colour-palette-neutrals-white-beige-cream-1-hsla { color: hsla(39, 57, 73, 1); }
+.colour-palette-neutrals-white-beige-cream-2-hsla { color: hsla(28, 19, 81, 1); }
+.colour-palette-neutrals-white-beige-cream-3-hsla { color: hsla(34, 27, 50, 1); }
+.colour-palette-neutrals-white-beige-cream-4-hsla { color: hsla(23, 15, 29, 1); }
+.colour-palette-neutrals-white-beige-cream-5-hsla { color: hsla(123, 100, 18, 1); }

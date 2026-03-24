@@ -1,0 +1,24 @@
+{{ define "main" }}
+  <article class="mx-auto mt-5 max-w-prose">
+    <header class="text-center">
+      <p class="mb-3 text-4xl font-extrabold text-neutral-900 dark:text-neutral">404</p>
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title | emojify }}</h1>
+      <p class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400">
+        This page does not exist or has been moved.
+      </p>
+    </header>
+
+    <section class="prose dark:prose-invert">
+      {{ .Content }}
+    </section>
+
+    <nav class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <a class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400" href="{{ "/" | relLangURL }}">
+        Back to home
+      </a>
+      <a class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400" href="{{ "/blog/" | relLangURL }}">
+        Browse blog posts
+      </a>
+    </nav>
+  </article>
+{{ end }}

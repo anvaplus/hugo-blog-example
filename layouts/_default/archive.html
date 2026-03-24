@@ -1,0 +1,37 @@
+{{ define "main" }}
+<article class="mx-auto" style="max-width: 48rem;">
+  <header class="mb-10">
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    {{ with .Params.description }}
+    <p class="mt-2 text-lg text-neutral-500 dark:text-neutral-400">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  {{ if .Content }}
+  <div class="prose dark:prose-invert mb-10">
+    {{ .Content }}
+  </div>
+  {{ end }}
+
+  {{ $posts := where site.RegularPages "Section" "blog" }}
+  {{ $posts = sort $posts "Date" "desc" }}
+
+  {{ $currentYear := "" }}
+  {{ range $posts }}
+    {{ $year := .Date.Format "2006" }}
+    {{ if ne $year $currentYear }}
+      {{ $currentYear = $year }}
+      <h2 class="mt-12 mb-2 text-2xl font-bold text-neutral-800 dark:text-neutral-100">{{ $year }}</h2>
+      <div style="height: 3px; width: 7rem; margin: 0 0 1rem 0; background: rgba(var(--color-secondary-500), 1);"></div>
+    {{ end }}
+    <div class="flex items-baseline py-3" style="gap: 3rem; border-bottom: 1px solid rgba(var(--color-neutral-300), 0.65);">
+      <time class="shrink-0 text-neutral-500 dark:text-neutral-400" style="min-width: 5.5rem; font-variant-numeric: tabular-nums;" datetime="{{ .Date.Format "2006-01-02" }}">
+        {{ .Date.Format "Jan 02" }}
+      </time>
+      <a class="text-neutral-800 dark:text-neutral-200 hover:text-primary-600 dark:hover:text-primary-400" href="{{ .Permalink }}">
+        {{ .Title }}
+      </a>
+    </div>
+  {{ end }}
+</article>
+{{ end }}

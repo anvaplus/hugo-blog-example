@@ -1,0 +1,26 @@
+baseURL = 'https://blog-example.dev.thebestpractice.com/'
+languageCode = 'en'
+title = 'Andrei Vasiliu'
+theme = 'blowfish'
+
+enableRobotsTXT = true
+paginate = 10
+summaryLength = 1
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# CRITICAL: Flat URL structure matching Hashnode
+[permalinks]
+  [permalinks.page]
+    blog = '/:slug/'
+  [permalinks.section]
+    blog = '/blog/'
+
+[taxonomies]
+  tag = "tags"
+  series = "series"
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
