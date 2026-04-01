@@ -39,7 +39,7 @@ jobs:
           exit-code: '1'
 
       - name: Run SonarQube scan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
@@ -47,6 +47,7 @@ jobs:
             -Dsonar.projectKey=${{ github.repository_owner }}_${{ github.event.repository.name }}
             -Dsonar.projectName=${{ github.event.repository.name }}
             -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+            -Dsonar.python.version=3
             -Dsonar.sources=.
             -Dsonar.exclusions=public/**,resources/**,themes/**
 
