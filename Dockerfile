@@ -38,7 +38,15 @@ RUN set -eux; \
 
 COPY --from=hugo-installer /usr/local/bin/hugo /usr/local/bin/hugo
 
-COPY --chown=builder:builder . /src/
+COPY --chown=builder:builder archetypes/ /src/archetypes/
+COPY --chown=builder:builder assets/ /src/assets/
+COPY --chown=builder:builder config/ /src/config/
+COPY --chown=builder:builder content/ /src/content/
+COPY --chown=builder:builder data/ /src/data/
+COPY --chown=builder:builder i18n/ /src/i18n/
+COPY --chown=builder:builder layouts/ /src/layouts/
+COPY --chown=builder:builder static/ /src/static/
+COPY --chown=builder:builder themes/ /src/themes/
 
 USER builder
 
