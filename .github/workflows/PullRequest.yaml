@@ -1,4 +1,4 @@
-name: Merge Request Validation
+name: Pull Request Validation
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   validate:
-    uses: anvaplus/homelab-github-workflows/.github/workflows/Hugo_MergeRequest.yaml@main
+    uses: anvaplus/homelab-github-workflows/.github/workflows/Hugo_PullRequest.yaml@main
     with:
       sonar_organization: ${{ vars.SONAR_ORGANIZATION }}
     secrets:
