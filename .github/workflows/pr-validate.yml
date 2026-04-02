@@ -8,7 +8,6 @@ on:
       - synchronize
     branches:
       - main
-      - test-pr
 
 permissions:
   contents: read
