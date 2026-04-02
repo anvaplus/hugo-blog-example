@@ -1,6 +1,78 @@
 # personal-blog
 
-This repository README is focused on Docker build and container delivery details for the blog.
+This repository is the public, deployment-focused companion for my blog at [andreivasiliu.com](https://andreivasiliu.com).
+
+It exists to document how the site is structured and how it is prepared for self-hosting on Kubernetes. The goal is not to mirror the full published archive, but to expose the mechanics behind the platform work: Hugo layout, content structure, theme integration, and the pieces that support containerization and delivery.
+
+## Scope
+
+This repository is intentionally limited in scope.
+
+What is included:
+
+- Hugo site structure
+- Blowfish theme integration
+- Content layout and page bundle structure
+- Custom layouts and styling overrides
+- Example placeholder content that explains the repository purpose
+- Deployment-oriented site wiring used for the blog platform
+
+What is intentionally not included:
+
+- The full blog archive
+- Every article published on the production site
+- A one-to-one copy of [andreivasiliu.com](https://andreivasiliu.com)
+
+If you want to read the actual articles, use the production site instead:
+
+- [Main blog](https://andreivasiliu.com)
+- [Archive](https://andreivasiliu.com/archive/)
+- [Roadmap post: From Hashnode to Kubernetes](https://andreivasiliu.com/from-hashnode-to-kubernetes-why-im-self-hosting-my-blog-like-a-bank-website/)
+
+## Why This Repo Exists
+
+The blog is being used as a real public-facing workload to demonstrate how platform engineering components fit together end to end.
+
+The main blog explains the why and the migration roadmap. This repository shows the how for the delivery side:
+
+- How the Hugo site is organized
+- How posts are structured as page bundles
+- How the site is prepared for containerization
+- How the repository can support CI/CD, Helm, and GitOps-driven Kubernetes deployment
+
+## Repository Structure
+
+Key directories:
+
+- `config/_default/` Hugo configuration
+- `content/` site pages and placeholder content
+- `content/blog/` public blog-facing content kept in this repo
+- `assets/css/` custom styling overrides
+- `layouts/` Hugo layout overrides on top of the Blowfish theme
+- `static/` static assets such as the favicon
+- `scripts/` helper automation scripts
+- `themes/blowfish/` theme source via git submodule
+
+## Local Development
+
+Clone the repository with submodules:
+
+```bash
+git clone --recurse-submodules https://github.com/anvaplus/hugo-blog-example.git
+cd hugo-blog-example
+```
+
+Run the local development server:
+
+```bash
+hugo server --disableFastRender --noHTTPCache
+```
+
+Build the site:
+
+```bash
+hugo
+```
 
 ## Container Build
 
@@ -34,12 +106,12 @@ This repository uses thin trigger workflows that delegate to reusable workflows 
 
 Centralized reusable workflows:
 
-- `anvaplus/homelab-github-workflows/.github/workflows/Hugo_MergeRequest.yaml`
+- `anvaplus/homelab-github-workflows/.github/workflows/Hugo_PullRequest.yaml`
 - `anvaplus/homelab-github-workflows/.github/workflows/Hugo_Deploy.yaml`
 
 ### Pull Request Validation
 
-Wrapper file: `.github/workflows/MergeRequest.yaml`
+Wrapper file: `.github/workflows/PullRequest.yaml`
 
 Trigger behavior:
 
@@ -49,7 +121,7 @@ Trigger behavior:
 
 Wrapper behavior:
 
-- calls centralized `Hugo_MergeRequest.yaml`
+- calls centralized `Hugo_PullRequest.yaml`
 - passes `SONAR_ORGANIZATION` as input
 - passes `SONAR_TOKEN` as secret
 
