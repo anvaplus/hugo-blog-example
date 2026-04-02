@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    uses: anvaplus/homelab-github-workflows/.github/workflows/Hugo_Deploy.yaml@main
+    with:
+      dockerhub_username: anvaplus
+      sonar_organization: ${{ vars.SONAR_ORGANIZATION }}
+    secrets:
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
