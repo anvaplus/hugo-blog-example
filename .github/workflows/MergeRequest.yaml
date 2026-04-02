@@ -1,0 +1,21 @@
+name: Merge Request Validation
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: anvaplus/homelab-github-workflows/.github/workflows/Hugo_MergeRequest.yaml@main
+    with:
+      sonar_organization: ${{ vars.SONAR_ORGANIZATION }}
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
