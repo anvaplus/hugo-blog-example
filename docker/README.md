@@ -136,6 +136,55 @@ Build and push a multi-architecture image:
 docker buildx build --platform linux/amd64,linux/arm64 -t your-registry/personal-blog:latest --push .
 ```
 
+## GitHub Actions Automation
+
+The repository includes two Docker-related GitHub Actions workflows.
+
+### PR validation workflow
+
+File: `.github/workflows/MergeRequest.yml`
+
+This workflow:
+
+- runs when a pull request targeting `main` is opened, reopened, or updated
+- runs Gitleaks to detect committed secrets
+- runs Trivy config scan on repository configuration
+- runs a SonarQube scan
+- builds a local `linux/amd64` image and scans it with Trivy
+- builds the image for `linux/amd64` and `linux/arm64`
+- validates that the image can be created successfully
+- does not push any image to Docker Hub
+
+### Publish workflow
+
+File: `.github/workflows/Deploy.yml`
+
+This workflow:
+
+- runs on push to `main` (post-merge)
+- generates the next `alpha` semantic version with the custom `next-version` action
+- tags the repository with that generated version
+- builds a local `linux/amd64` image and scans it with Trivy
+- builds `linux/amd64` and `linux/arm64`
+- pushes a multi-architecture manifest to Docker Hub
+- runs a SonarQube scan
+- publishes only one Docker image tag per run: the generated semantic alpha version
+
+Required GitHub secrets:
+
+- `DOCKERHUB_TOKEN`
+- `SONAR_TOKEN`
+
+Required GitHub repository variables:
+
+- `SONAR_ORGANIZATION`
+
+The workflow uses the GitHub repository name as the Docker image name by default. In this repository that means the image name becomes `hugo-blog-example`.
+
+The Docker Hub username used by the deploy workflow is currently set in the workflow as `anvaplus`.
+
+The published Docker tag includes only the generated alpha version, for example `v1.3.0-alpha.1`.
+
 ## Run The Container
 
 Run the image locally:

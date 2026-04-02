@@ -1,10 +1,9 @@
-name: Publish Docker Image
+name: Deploy
 
 on:
   push:
     branches:
       - main
-      - github-actions
 
 permissions:
   contents: write
@@ -79,3 +78,16 @@ jobs:
             org.opencontainers.image.version=${{ steps.version.outputs.new-version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Run SonarQube scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ github.repository_owner }}_${{ github.event.repository.name }}
+            -Dsonar.projectName=${{ github.event.repository.name }}
+            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+            -Dsonar.python.version=3
+            -Dsonar.sources=.
+            -Dsonar.exclusions=public/**,resources/**,themes/**

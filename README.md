@@ -102,6 +102,73 @@ Build a multi-architecture image for both `amd64` and `arm64` and push it to a r
 docker buildx build --platform linux/amd64,linux/arm64 -t your-registry/personal-blog:latest --push .
 ```
 
+## GitHub Actions Docker Workflows
+
+This repository includes two separate GitHub Actions workflows for container automation.
+
+### 1. Pull Request Validation
+
+Workflow file: `.github/workflows/MergeRequest.yml`
+
+Trigger behavior:
+
+- PR opened against `main`
+- PR reopened against `main`
+- PR updated with new commits against `main`
+
+What it does:
+
+- checks out the repository with submodules
+- runs a Gitleaks secret scan
+- runs a Trivy configuration scan
+- runs a SonarQube code scan
+- sets up Docker Buildx
+- builds a local `linux/amd64` image for security verification
+- runs a Trivy image scan on that local image
+- builds the container for both `linux/amd64` and `linux/arm64`
+- verifies that the code builds and that the image can be created
+- does not push anything to Docker Hub
+
+### 2. Publish After Merge
+
+Workflow file: `.github/workflows/Deploy.yml`
+
+Trigger behavior:
+
+- push to `main` (post-merge)
+
+What it does:
+
+- checks out the commit on `main`
+- runs the custom semantic versioning strategy described in [VERSIONING_STRATEGY](https://github.com/anvaplus/github-actions-common/blob/main/VERSIONING_STRATEGY.md)
+- generates an `alpha` semantic version such as `v1.3.0-alpha.1`
+- tags the Git repository with that generated version
+- builds a local `linux/amd64` image and runs a Trivy image scan before publishing
+- builds and pushes a multi-architecture image to Docker Hub for:
+	- `linux/amd64`
+	- `linux/arm64`
+- runs a SonarQube code scan
+- publishes the Docker image using only that generated alpha version tag
+
+Required GitHub repository secrets:
+
+- `DOCKERHUB_TOKEN`
+- `SONAR_TOKEN`
+
+Required GitHub repository variables:
+
+- `SONAR_ORGANIZATION`
+
+The Docker Hub username used by the deploy workflow is currently set in the workflow as `anvaplus`.
+
+Example published image names:
+
+- `docker.io/anvaplus/hugo-blog-example:v1.3.0-alpha.1`
+
+The workflow needs repository `contents: write` permission because the custom versioning action is configured with `tag-repo: true`.
+
+To ensure only validated PRs can be merged and published, configure branch protection on `main` and mark the PR validation workflow as a required status check.
+
 Run it locally:
 
 ```bash
