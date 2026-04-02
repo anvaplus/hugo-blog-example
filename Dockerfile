@@ -7,7 +7,7 @@ FROM alpine:3.22 AS hugo-installer
 ARG HUGO_VERSION
 
 RUN set -eux; \
-    apk add --no-cache ca-certificates tar wget; \
+    apk add --no-cache ca-certificates curl tar; \
         arch="$(uname -m)"; \
         case "$arch" in \
             x86_64|amd64) hugo_arch='amd64' ;; \
@@ -15,8 +15,8 @@ RUN set -eux; \
             *) echo "Unsupported architecture: $arch" >&2; exit 1 ;; \
     esac; \
         hugo_archive="hugo_extended_${HUGO_VERSION}_linux-${hugo_arch}.tar.gz"; \
-        wget -O "/tmp/${hugo_archive}" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${hugo_archive}"; \
-    wget -O /tmp/hugo_checksums.txt "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_checksums.txt"; \
+        curl --proto '=https' --tlsv1.2 -fsSL -o "/tmp/${hugo_archive}" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${hugo_archive}"; \
+        curl --proto '=https' --tlsv1.2 -fsSL -o /tmp/hugo_checksums.txt "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_checksums.txt"; \
         cd /tmp; \
         grep " ${hugo_archive}$" /tmp/hugo_checksums.txt | sha256sum -c -; \
         tar -xzf "/tmp/${hugo_archive}" -C /tmp hugo; \
