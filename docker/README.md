@@ -28,14 +28,16 @@ What it does:
 - Uses `alpine:3.22` as a minimal base
 - Detects the current build architecture with `uname -m`
 - Maps the architecture to either `amd64` or `arm64`
-- Downloads the matching Hugo Extended archive from the Hugo GitHub releases page
-- Downloads the official checksum file
+- Downloads the matching Hugo Extended archive from the Hugo GitHub releases page with `curl`
+- Follows redirects only when they stay on HTTPS
+- Downloads the official checksum file with the same HTTPS-only redirect policy
 - Verifies the archive before extracting it
 - Installs the `hugo` binary into `/usr/local/bin/hugo`
 
 Why this stage exists:
 
 - Keeps Hugo version pinning explicit
+- Prevents downgrade to insecure redirect targets during download
 - Verifies the downloaded binary before using it
 - Avoids depending on an external prebuilt Hugo image
 
@@ -97,6 +99,7 @@ This setup includes a few practical security layers.
 
 - Multi-stage build: keeps build tools out of the final image
 - Pinned Hugo version: avoids drifting to an untested release
+- HTTPS-only redirects for Hugo downloads: prevents fallback to insecure redirect targets
 - Checksum verification: validates the downloaded Hugo archive
 - Non-root builder user: reduces risk during the build stage
 - Non-root runtime user: avoids running nginx as root
