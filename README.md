@@ -102,7 +102,7 @@ docker buildx build --platform linux/amd64,linux/arm64 -t your-registry/personal
 
 ## GitHub Actions Docker Workflows
 
-This repository uses thin trigger workflows that delegate to reusable workflows in [`anvaplus/homelab-github-workflows`](https://github.com/alpian-technologies/ispwm-platform-github-workflows).
+This repository uses thin trigger workflows that delegate to reusable workflows in [`anvaplus/homelab-github-workflows`](https://github.com/anvaplus/homelab-github-workflows).
 
 Centralized reusable workflows:
 
