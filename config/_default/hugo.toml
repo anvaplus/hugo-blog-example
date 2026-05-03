@@ -1,4 +1,4 @@
-baseURL = 'https://blog-example.dev.thebestpractice.com/'
+baseURL = 'https://hugo-traefik.thebestpractice.tech/'
 languageCode = 'en'
 title = 'Andrei Vasiliu'
 theme = 'blowfish'
